@@ -1,0 +1,2 @@
+Array = series of elements
+function = a soon to be or already defined action.
