@@ -3,11 +3,11 @@ class BarChart {
 
         this.data = _data;
 
-        this.chartWidth = 300;
+        this.chartWidth = 100;
         this.chartHeight = 300;
 
         this.posX = 50;
-        this.posY = 400;
+        this.posY = 450;
 
         this.spacing = 5;
         this.margin = 30;
@@ -29,10 +29,9 @@ class BarChart {
 
         this.showValues = true;
         this.showLabels = true;
-        this.rotateLabels = false;
+        this.rotateLabels = true;
 
 
-        this.calculateMaxValue();
         this.updateValue();
     }
 
@@ -40,10 +39,8 @@ class BarChart {
         this.tickSpacing = this.chartHeight / this.numTicks;
         this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1)); //available space for bars
         this.barWidth = this.remainder / this.data.length;
-    }
 
-    calculateMaxValue() {
-        let listValues = this.data.map(function(x) { return x.total })
+        let listValues = this.data.map(function(x) { return x.value })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
     }
@@ -75,7 +72,7 @@ class BarChart {
             noStroke();
             textSize(14);
             textAlign(RIGHT, CENTER);
-            text((i * this.tickIncrements).toFixed(2), -15, this.tickSpacing * -i);
+            text((i * this.tickIncrements).toFixed(1), -15, this.tickSpacing * -i);
         }
     }
 
@@ -92,7 +89,7 @@ class BarChart {
         //y Axis
         strokeWeight(1);
         stroke(255);
-        line(0, 0, 0, -this.chartWidth);
+        line(0, 0, 0, -this.chartHeight);
         //x Axis
         strokeWeight(1);
         stroke(255);
@@ -100,6 +97,7 @@ class BarChart {
     }
 
     drawRects() {
+
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
@@ -108,7 +106,7 @@ class BarChart {
             //bars
             fill(this.colors[colorNum]);
             noStroke();
-            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].total));
+            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].value));
 
             //numbers (text)
             if (this.showValues) {
@@ -116,7 +114,7 @@ class BarChart {
                 fill(255);
                 textSize(16);
                 textAlign(CENTER, BOTTOM);
-                text(this.data[i].total, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].total));
+                text(this.data[i].value, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].value));
             }
 
 
@@ -127,10 +125,10 @@ class BarChart {
                     noStroke();
                     fill(255);
                     textSize(14);
-                    textAlign(CENTER, BOTTOM);
-                    translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20)
+                    textAlign(LEFT, BOTTOM);
+                    translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10)
                     rotate(PI / 2);
-                    text(this.data[i].name, 0, 0);
+                    text(this.data[i].label, 0, 0);
                     pop();
                 } else {
                     push();
@@ -138,7 +136,7 @@ class BarChart {
                     fill(255);
                     textSize(14);
                     textAlign(CENTER, BOTTOM);
-                    text(this.data[i].name, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
+                    text(this.data[i].label, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                     pop();
                 }
             }

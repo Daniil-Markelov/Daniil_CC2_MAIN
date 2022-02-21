@@ -7,20 +7,14 @@ let data = [
 
 ];
 
-
+let chart01;
 
 function setup() {
-    createCanvas(500, 500);
+    createCanvas(1000, 1000);
     background(127);
+    chart01 = new BarChart(data);
+    chart01.chartWidth = 300;
 
-    Chart01 = new barChart(data01);
-    Chart02.chartWidth = 500;
-    Chart01.updateValue();
-
-    Chart02 = new barChart(data02);
-    Chart02.chartWidth = 300;
-
-    Chart02.updateValue();
 }
 
 
@@ -28,6 +22,7 @@ function setup() {
 function draw() {
     background(0);
 
-    Chart01.render();
-    Chart02.render();
+    chart01.render();
+    chart01.updateValue();
+
 }
