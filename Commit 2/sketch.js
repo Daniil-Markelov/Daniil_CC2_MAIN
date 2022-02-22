@@ -8,13 +8,15 @@ let data = [
 ];
 
 let chart01;
+let chart02;
 
 function setup() {
     createCanvas(1000, 1000);
     background(127);
     chart01 = new BarChart(data);
     chart01.chartWidth = 300;
-
+    chart02 = new HorzChart(data);
+    chart01.chartWidth = 200;
 }
 
 
@@ -24,5 +26,8 @@ function draw() {
 
     chart01.render();
     chart01.updateValue();
+    chart02.render();
+    chart02.updateValue();
+
 
 }

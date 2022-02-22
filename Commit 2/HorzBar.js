@@ -1,4 +1,4 @@
-class BarChart {
+class HorzChart {
     constructor(_data) {
 
         this.data = _data;
@@ -6,7 +6,7 @@ class BarChart {
         this.chartWidth = 100;
         this.chartHeight = 300;
 
-        this.posX = 50;
+        this.posX = 0;
         this.posY = 450;
 
         this.spacing = 5;
@@ -125,7 +125,7 @@ class BarChart {
                     noStroke();
                     fill(255);
                     textSize(14);
-                    textAlign(CENTER, BOTTOM);
+                    textAlign(LEFT, BOTTOM);
                     translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10)
                     rotate(PI / 2);
                     text(this.data[i].label, 0, 0);
@@ -136,7 +136,8 @@ class BarChart {
                     fill(255);
                     textSize(14);
                     textAlign(CENTER, BOTTOM);
-                    text(this.data[i].label, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
+                    text(this.data[i].label, -(this.margin), -((this.barWidth + this.spacing) * i) + this.barWidth / 2 + 10);
+                    //text(this.data[i].label, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                     pop();
                 }
             }
