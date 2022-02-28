@@ -11,7 +11,7 @@ class HorzChart {
         this.posY = 10;
         this.textspacing = 20;
 
-        this.title = "Sales of Fruit"
+        // this.title = "Sales of Fruit"
 
 
         this.spacing = 5;

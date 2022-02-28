@@ -1,4 +1,4 @@
-class BarChart {
+class StackedBarChart {
     constructor(_data) {
 
         this.data = _data;
@@ -18,7 +18,7 @@ class BarChart {
 
         this.tickIncrements;
         this.maxValue;
-        //this.title = "Sales OF Fruit"
+        this.title = "Sales OF Fruit"
 
         this.colors = [
             color('red'),
@@ -63,7 +63,7 @@ class BarChart {
 
     drawTitle() {
         textAlign(CENTER, CENTER);
-        text(this.title, (this.chartHeight / 2), (this.chartHeight + this.margin));
+        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
     };
 
     drawTickLines() {
@@ -106,12 +106,10 @@ class BarChart {
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
-            let colorNum = i % 4;
-
-            //bars
+            let j = 0;
+            let colorNum = i % 1;
             fill(this.colors[colorNum]);
-            noStroke();
-            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].value));
+
 
             //numbers (text)
             if (this.showValues) {
