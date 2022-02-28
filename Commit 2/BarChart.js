@@ -18,7 +18,7 @@ class BarChart {
 
         this.tickIncrements;
         this.maxValue;
-
+        this.title = "Sales OF Fruit"
 
         this.colors = [
             color('red'),
@@ -37,7 +37,7 @@ class BarChart {
 
     updateValue() {
         this.tickSpacing = this.chartHeight / this.numTicks;
-        this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1)); //available space for bars
+        this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.remainder / this.data.length;
 
         let listValues = this.data.map(function(x) { return x.value })
@@ -47,12 +47,12 @@ class BarChart {
 
     render() {
         translate(this.posX, this.posY);
-        //chart
+
 
 
         this.drawAxis();
         this.drawTickLines();
-        this.drawHorizontalLines();
+        this.drawLines();
         this.drawRects();
     }
 
@@ -60,6 +60,11 @@ class BarChart {
     scaledData(num) {
         return map(num, 0, this.maxValue, 0, this.chartHeight);
     }
+
+    drawTitle() {
+        textAlign(CENTER, CENTER);
+        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
+    };
 
     drawTickLines() {
         for (let i = 0; i <= this.numTicks; i++) {
@@ -76,7 +81,7 @@ class BarChart {
         }
     }
 
-    drawHorizontalLines() {
+    drawLines() {
         for (let i = 0; i <= this.numTicks; i++) {
             //horizontal line
             stroke(255, 100);
