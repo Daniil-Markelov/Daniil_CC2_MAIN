@@ -18,10 +18,10 @@ class BarChart {
 
         this.tickIncrements;
         this.maxValue;
-        //this.title = "Sales OF Fruit"
+        this.title = "";
 
         this.colors = [
-            color('red'),
+            color('purple'),
             color('green'),
             color('blue'),
             color('orange')
@@ -30,6 +30,8 @@ class BarChart {
         this.showValues = true;
         this.showLabels = true;
         this.rotateLabels = false;
+        this.valuetext = 3;
+        this.titleoffset = 10;
 
 
         this.updateValue();
@@ -40,7 +42,7 @@ class BarChart {
         this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.remainder / this.data.length;
 
-        let listValues = this.data.map(function(x) { return x.value })
+        let listValues = this.data.map(function(x) { return x.deaths })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
     }
@@ -54,6 +56,7 @@ class BarChart {
         this.drawTickLines();
         this.drawLines();
         this.drawRects();
+        this.drawTitle();
     }
 
 
@@ -63,7 +66,7 @@ class BarChart {
 
     drawTitle() {
         textAlign(CENTER, CENTER);
-        text(this.title, (this.chartHeight / 2), (this.chartHeight + this.margin));
+        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
     };
 
     drawTickLines() {
@@ -77,7 +80,7 @@ class BarChart {
             noStroke();
             textSize(14);
             textAlign(RIGHT, CENTER);
-            text((i * this.tickIncrements).toFixed(1), -15, this.tickSpacing * -i);
+            text((i * this.tickIncrements).toFixed(0), -15, this.tickSpacing * -i);
         }
     }
 
@@ -111,15 +114,15 @@ class BarChart {
             //bars
             fill(this.colors[colorNum]);
             noStroke();
-            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].value));
+            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].deaths));
 
             //numbers (text)
             if (this.showValues) {
                 noStroke();
                 fill(255);
-                textSize(16);
+                textSize(3);
                 textAlign(CENTER, BOTTOM);
-                text(this.data[i].value, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].value));
+                text(this.data[i].deaths, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].deaths));
             }
 
 
@@ -129,11 +132,11 @@ class BarChart {
                     push();
                     noStroke();
                     fill(255);
-                    textSize(14);
+                    textSize(12);
                     textAlign(CENTER, BOTTOM);
-                    translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10)
+                    translate(((this.barWidth + this.spacing) * i - 5) + this.barWidth / 2, 20)
                     rotate(PI / 2);
-                    text(this.data[i].label, 0, 0);
+                    text(this.data[i].date, 0, 0);
                     pop();
                 } else {
                     push();
@@ -141,7 +144,7 @@ class BarChart {
                     fill(255);
                     textSize(14);
                     textAlign(CENTER, BOTTOM);
-                    text(this.data[i].label, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
+                    text(this.data[i].date, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                     pop();
                 }
             }

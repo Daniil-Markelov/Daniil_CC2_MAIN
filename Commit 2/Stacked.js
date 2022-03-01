@@ -1,4 +1,4 @@
-class StackedBarChart {
+class BarChart2 {
     constructor(_data) {
 
         this.data = _data;
@@ -18,10 +18,10 @@ class StackedBarChart {
 
         this.tickIncrements;
         this.maxValue;
-        this.title = "Sales OF Fruit"
+        this.title = "";
 
         this.colors = [
-            color('red'),
+            color('purple'),
             color('green'),
             color('blue'),
             color('orange')
@@ -30,6 +30,8 @@ class StackedBarChart {
         this.showValues = true;
         this.showLabels = true;
         this.rotateLabels = false;
+        this.valuetext = 3;
+        this.titleoffset = 10;
 
 
         this.updateValue();
@@ -40,7 +42,7 @@ class StackedBarChart {
         this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.remainder / this.data.length;
 
-        let listValues = this.data.map(function(x) { return x.value })
+        let listValues = this.data.map(function(x) { return x.cases })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
     }
@@ -54,6 +56,7 @@ class StackedBarChart {
         this.drawTickLines();
         this.drawLines();
         this.drawRects();
+        this.drawTitle();
     }
 
 
@@ -77,7 +80,7 @@ class StackedBarChart {
             noStroke();
             textSize(14);
             textAlign(RIGHT, CENTER);
-            text((i * this.tickIncrements).toFixed(1), -15, this.tickSpacing * -i);
+            text((i * this.tickIncrements).toFixed(0), -15, this.tickSpacing * -i);
         }
     }
 
@@ -106,18 +109,21 @@ class StackedBarChart {
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
-            let j = 0;
-            let colorNum = i % 1;
-            fill(this.colors[colorNum]);
+            let colorNum = i % 4;
 
+            //bars
+            fill(this.colors[colorNum]);
+            noStroke();
+            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].cases));
 
             //numbers (text)
             if (this.showValues) {
                 noStroke();
                 fill(255);
-                textSize(16);
+                textSize(3);
                 textAlign(CENTER, BOTTOM);
-                text(this.data[i].value, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].value));
+                text(this.data[i].cases, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].cases));
+
             }
 
 
@@ -131,7 +137,7 @@ class StackedBarChart {
                     textAlign(CENTER, BOTTOM);
                     translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10)
                     rotate(PI / 2);
-                    text(this.data[i].label, 0, 0);
+                    text(this.data[i].date, 0, 0);
                     pop();
                 } else {
                     push();
@@ -139,7 +145,7 @@ class StackedBarChart {
                     fill(255);
                     textSize(14);
                     textAlign(CENTER, BOTTOM);
-                    text(this.data[i].label, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
+                    text(this.data[i].date, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                     pop();
                 }
             }
