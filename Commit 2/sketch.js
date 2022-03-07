@@ -842,7 +842,10 @@ let datamonths = [
 
     { date: "02/26", cases: "78825844", deaths: "946686" },
 ]
-
+ let stackdata = [ 
+    { name: "America", cdname: ["3+","2","1","0"],cd: [100,85,60,15], cdtotal:100 }, 
+    { name: "Ireland", cdname: ["3+","2","1","0"],cd: [100,80,60,20], cdtotal:100 },
+ ]
 
 //const obj = JSON.parse(text);
 
@@ -883,13 +886,13 @@ function setup() {
     // chart02.posY = 500;
     // chart02.updateValue();
     // chart02.rotateLabels = true;
-    //chart03 = new StackedBarChart(data);
-    //chart03.chartWidth = 300;
-    //chart03.chartHeight = 200;
-    // chart03.posX = 100;
-    // chart03.posY = 400;
-    //   chart03.updateValue();
-    //   chart03.rotateLabels = false;
+    chart03 = new Stack(stackdata);
+    chart03.title = "Percentage Vaccination Rate Comparison(As Of March 2022)"
+    chart03.chartWidth = 300;
+    chart03.chartHeight = 200;
+     chart03.posX = 500;
+     chart03.posY = 0;
+       chart03.updateValue();
 
 }
 
@@ -902,8 +905,8 @@ function draw() {
     chart01.updateValue();
     chart02.render();
     chart02.updateValue();
-    //chart03.render();
-    //chart03.updateValue();
+    chart03.render();
+    chart03.updateValue();
 
 
 }
