@@ -21,10 +21,31 @@ class BarChart {
         this.title = "";
 
         this.colors = [
-            color('purple'),
-            color('green'),
-            color('blue'),
-            color('orange')
+            color('#67001f'),
+            color('#67001f'),
+            color('#67001f'),
+            color('#b2182b'),
+            color('#b2182b'),
+            color('#b2182b'),
+            color('#d6604d'),
+            color('#d6604d'),
+            color('#f4a582'),
+            color('#f4a582'),
+            color('#fddbc7'),
+            color('#fddbc7'),
+            color('#f7f7f7'),
+            color('#f7f7f7'),
+            color('#d1e5f0'),
+            color('#d1e5f0'),
+            color('#92c5de'),
+            color('#92c5de'),
+            color('#4393c3'),
+            color('#4393c3'),
+            color('#2166ac'),
+            color('#2166ac'),
+            color('#053061'),
+            color('#053061'),
+            color('#053061'),
         ];
 
         this.showValues = true;
@@ -66,7 +87,7 @@ class BarChart {
 
     drawTitle() {
         textAlign(CENTER, CENTER);
-        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
+        text(this.title, (this.chartWidth / 2), -(this.chartHeight + this.margin));
     };
 
     drawTickLines() {
@@ -109,7 +130,7 @@ class BarChart {
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
-            let colorNum = i % 4;
+            let colorNum = i % 24;
 
             //bars
             fill(this.colors[colorNum]);

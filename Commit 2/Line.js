@@ -19,15 +19,16 @@ class BarChart2 {
         this.tickIncrements;
         this.maxValue;
         this.title = "";
+        this.color =
 
-        this.colors = [
-            color('purple'),
-            color('green'),
-            color('blue'),
-            color('orange')
-        ];
+            //this.colors = [
+            // color('purple'),
+            // color('green'),
+            //  color('blue'),
+            // color('orange')
+            //];
 
-        this.showValues = true;
+            this.showValues = true;
         this.showLabels = true;
         this.rotateLabels = false;
         this.valuetext = 3;
@@ -42,7 +43,7 @@ class BarChart2 {
         this.remainder = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.remainder / this.data.length;
 
-        let listValues = this.data.map(function(x) { return x.cases })
+        let listValues = this.data.map(function(x) { return x.Deaths })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
     }
@@ -66,7 +67,7 @@ class BarChart2 {
 
     drawTitle() {
         textAlign(CENTER, CENTER);
-        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
+        text(this.title, (this.chartHeight / 1.5), -(this.chartHeight + this.margin));
     };
 
     drawTickLines() {
@@ -109,46 +110,38 @@ class BarChart2 {
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
-            let colorNum = i % 4;
+            //let colorNum = i % 4;
 
             //bars
-            fill(this.colors[colorNum]);
+            //fill(this.colors[colorNum]);
+            fill(255, 0, 0, 0)
             noStroke();
-            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].cases));
+            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaledData(-this.data[i].Deaths));
 
             //numbers (text)
             if (this.showValues) {
                 noStroke();
                 fill(255);
                 textSize(3);
+                textStyle(BOLD);
                 textAlign(CENTER, BOTTOM);
-                text(this.data[i].cases, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].cases));
+                text(this.data[i].Deaths, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, this.scaledData(-this.data[i].Deaths));
 
             }
 
 
             //text
             if (this.showLabels) {
-                if (this.rotateLabels) {
-                    push();
-                    noStroke();
-                    fill(255);
-                    textSize(14);
-                    textAlign(CENTER, BOTTOM);
-                    translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10)
-                    rotate(PI / 2);
-                    text(this.data[i].date, 0, 0);
-                    pop();
-                } else {
-                    push();
-                    noStroke();
-                    fill(255);
-                    textSize(14);
-                    textAlign(CENTER, BOTTOM);
-                    text(this.data[i].date, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
-                    pop();
-                }
+
+                push();
+                noStroke();
+                fill(200);
+                textSize(20);
+                textAlign(CENTER, BOTTOM);
+                text("T I M E(2020 - 2022)", (this.chartWidth / 2.5), 30);
+                pop();
             }
+
         }
         pop();
     }

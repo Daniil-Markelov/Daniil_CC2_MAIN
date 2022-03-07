@@ -37,9 +37,11 @@ class Stack {
         this.rotateLabels = false;
         this.valuetext = 3;
         this.titleoffset = 10;
+        this.myNumber = 100;
+        this.myNumberMin = 0;
+        this.myNumberMax = 1000;
+        this.myNumberStep = 10;
 
-
-        this.updateValue();
     }
 
     updateValue() {
@@ -51,6 +53,7 @@ class Stack {
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
     }
+
 
 
 
@@ -74,7 +77,7 @@ class Stack {
 
     drawTitle() {
         textAlign(CENTER, CENTER);
-        text(this.title, (this.chartHeight / 2), -(this.chartHeight + this.margin));
+        text(this.title, (this.chartWidth / 2), -(this.chartHeight + this.margin));
     };
 
     drawTickLines() {
@@ -117,41 +120,41 @@ class Stack {
         translate(this.margin, 0);
         push();
         for (let i = 0; i < this.data.length; i++) {
-            
-                for (let j = 0; j < this.data[i].cd.length; j++) {
-    
-                    if (this.showValues) {
-                        noStroke();
-                        fill(36,102,194);
-                        textSize(16);
-                        textAlign(CENTER, BOTTOM);
-                        text(this.data[i].cdname[j], i * (this.barWidth + this.spacing) + this.barWidth / 2, this.scaledData(-this.data[i].cd[j]));
-                        //text("deaths", i * (this.barWidth + this.spacing) + this.barWidth / 2, 0);
-                        
-                    }
-                    if (this.showLabels) {
-                        push();
+
+            for (let j = 0; j < this.data[i].cd.length; j++) {
+                let colorNum = j % 4;
+
+                fill(this.icolors[colorNum]);
+                noStroke();
+                rect(i * (this.barWidth + this.spacing), 0, this.barWidth, this.scaledData(-this.data[i].cd[j]));
+                translate(0, this.scaledData(-this.data[i].cdtotal[j]));
+
+
+                if (this.showValues) {
+                    noStroke();
+                    fill(36, 102, 194);
+                    textSize(16);
+                    textAlign(CENTER, BOTTOM);
+                    text(this.data[i].cdname[j], i * (this.barWidth + this.spacing) + this.barWidth / 2, this.scaledData(-this.data[i].cd[j]) + 20);
+                    //text("deaths", i * (this.barWidth + this.spacing) + this.barWidth / 2, 0);
+
+                }
+                if (this.showLabels) {
+                    push();
                     noStroke();
                     fill(255);
                     textSize(14);
                     textAlign(CENTER, BOTTOM);
                     text(this.data[i].name, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                     pop();
-                    }
-
-                     let colorNum = j % 4;
-                     
-                    fill(this.icolors[colorNum]);
-                    noStroke();
-                    rect(i * (this.barWidth + this.spacing), 0, this.barWidth, this.scaledData(-this.data[i].cd[j]));
-                    translate(0, this.scaledData(-this.data[i].cdtotal[j]));
-                    
-                    
-    
                 }
-               
+
+
+
+
             }
-             pop();
+
         }
+        pop();
     }
-    
+}
